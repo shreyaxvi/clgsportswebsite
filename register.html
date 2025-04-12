@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <style>
+        /* Your custom styles here */
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>JSPM RSCOE College Sports</h1>
+            <p>Unleash Your Inner Champion!</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="register.html" class="active">Register</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <h2>Registration Form</h2>
+            <p>Please fill out this form to register for upcoming sports events.</p>
+
+            <!-- Message section to show success or error messages -->
+            <div id="message"></div>
+
+            <!-- Registration Form -->
+            <form class="registration-form" id="regForm" action="submit.php" method="POST">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+            
+                <label for="rollNo">Roll No:</label>
+                <input type="text" id="rollNo" name="rollNo" required>
+            
+                <label for="department">Department:</label>
+                <select id="department" name="department">
+                    <option value="Computer">Computer</option>
+                    <option value="IT">IT</option>
+                    <option value="Mechanical">Mechanical</option>
+                    <option value="Civil">Civil</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Other">Other</option>
+                </select>
+            
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            
+                <label for="contact">Contact Number:</label>
+                <input type="tel" id="contact" name="contact" required>
+            
+                <label>Select Events:</label>
+                <div>
+                    <input type="checkbox" id="chess" name="events[]" value="Chess">
+                    <label for="chess">Chess</label><br>
+            
+                    <input type="checkbox" id="athletics" name="events[]" value="Athletics">
+                    <label for="athletics">Athletics</label><br>
+            
+                    <input type="checkbox" id="carrom" name="events[]" value="Carrom">
+                    <label for="carrom">Carrom</label><br>
+            
+                    <input type="checkbox" id="tableTennis" name="events[]" value="Table Tennis">
+                    <label for="tableTennis">Table Tennis</label><br>
+            
+                    <input type="checkbox" id="volleyball" name="events[]" value="Volleyball">
+                    <label for="volleyball">Volleyball</label><br>
+            
+                    <input type="checkbox" id="badminton" name="events[]" value="Badminton">
+                    <label for="badminton">Badminton</label><br>
+            
+                    <input type="checkbox" id="football" name="events[]" value="Football">
+                    <label for="football">Football</label><br>
+            
+                    <input type="checkbox" id="basketball" name="events[]" value="Basketball">
+                    <label for="basketball">Basketball</label><br>
+                </div>
+            
+                <button type="submit">Submit</button>
+            </form>
+            
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 JSPM RSCOE College Sports. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // If you want to add AJAX functionality (optional)
+        function submitForm(event) {
+            event.preventDefault();
+
+            const form = document.getElementById('regForm');
+            const formData = new FormData(form);
+
+            // Making an AJAX request to submit the form
+            fetch('submit.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('message').innerHTML = "<div class='success'>Registration Successful!</div>";
+                    form.reset(); // Reset the form fields
+                } else {
+                    document.getElementById('message').innerHTML = "<div class='error'>Something went wrong, please try again.</div>";
+                }
+            })
+            .catch(error => {
+                document.getElementById('message').innerHTML = "<div class='error'>Network error, please try again later.</div>";
+            });
+        }
+    </script>
+
+</body>
+</html>
